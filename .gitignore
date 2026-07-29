@@ -1,0 +1,17 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+chatbot_env/
+venv/
+ENV/
+
+# Database files
+chats.db
+*.sqlite3
+
+# IDE / OS settings
+.vscode/
+.idea/
+.DS_Store
