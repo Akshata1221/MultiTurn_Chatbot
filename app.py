@@ -1,3 +1,4 @@
+ pyrefly: ignore [missing-import]
 import streamlit as st
 from chatbot import get_response_stream
 from database import (
@@ -127,15 +128,9 @@ else:
 
         # Stream the response token-by-token
         with st.chat_message("assistant"):
-            response_placeholder = st.empty()
-            full_response = ""
-            for chunk in get_response_stream(prompt):
-                full_response += chunk
-                response_placeholder.markdown(full_response + "▌")
-            response_placeholder.markdown(full_response)
+            response = st.write_stream(get_response_stream(prompt))
 
         # Save to session state and database
-        response = full_response
         st.session_state.messages.append((user_input, response))
         save_message(st.session_state.current_session, user_input, response)
 
