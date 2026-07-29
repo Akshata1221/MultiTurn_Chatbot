@@ -7,9 +7,12 @@ A modern, local-first multi-turn conversational AI web application built using *
 ## 🌟 Key Features
 
 - **💬 Multi-Turn Context**: Remembers previous chat history during active sessions for contextual responses.
+- **📂 Multi-Session Support**: Create, switch between, and delete multiple chat sessions from the sidebar.
+- **⚡ Streaming Responses**: Tokens stream in real-time for a fluid, ChatGPT-like experience.
 - **🔒 Local & Private**: Powered locally via [Ollama](https://ollama.com/) — your data never leaves your machine.
-- **💾 Database Logging**: Automatically persists chat history into an SQLite database (`chats.db`).
-- **🎨 Modern UI**: Built with Streamlit's native chat components (`st.chat_message` and `st.chat_input`).
+- **💾 Persistent Storage**: All sessions and messages are stored in SQLite and survive page refreshes.
+- **🎨 Dark Theme**: Polished dark UI with a custom purple accent color.
+- **🛡️ Error Handling**: Graceful messages if Ollama is offline or encounters errors.
 
 ---
 
@@ -17,11 +20,11 @@ A modern, local-first multi-turn conversational AI web application built using *
 
 | File | Description |
 | :--- | :--- |
-| **`app.py`** | Main Streamlit interface, session state management, and user interaction flow. |
-| **`chatbot.py`** | LangChain wrapper connecting to the local Ollama LLM (`llama3`). |
-| **`database.py`** | Database creation and schema script for `chats.db`. |
-| **`chats.db`** | SQLite database storing conversation records. |
-| **`requirements.txt`** | List of Python dependencies (`streamlit`, `langchain-ollama`). |
+| **`app.py`** | Main Streamlit interface — sidebar, sessions, streaming chat, and UI logic. |
+| **`chatbot.py`** | LangChain wrapper with error handling and streaming support via Ollama. |
+| **`database.py`** | Reusable database module with session & message CRUD helpers. Auto-initializes on import. |
+| **`.streamlit/config.toml`** | Streamlit dark theme configuration. |
+| **`requirements.txt`** | Python dependencies (`streamlit`, `langchain-ollama`). |
 
 ---
 
@@ -58,17 +61,13 @@ Install all required packages from `requirements.txt`:
 pip install -r requirements.txt
 ```
 
-### 4. Initialize Database
-Create the `chats.db` database and `conversations` table:
-```bash
-python database.py
-```
-
-### 5. Run the Application
+### 4. Run the Application
 Launch the Streamlit web application:
 ```bash
 streamlit run app.py
 ```
+
+> **Note:** The database (`chats.db`) is created automatically when the app starts — no separate setup step needed.
 
 Open your browser at **[http://localhost:8501](http://localhost:8501)** to start chatting!
 
